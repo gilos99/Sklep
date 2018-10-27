@@ -7,7 +7,7 @@
         {
             $this->content = 
             "
-                
+                <div id='home_main'></div>
             ";            
         }
     }

@@ -22,28 +22,26 @@
             $this->layout->render();
         }
 
-        public function items($item = false)
+        public function items()
         {
-            if(!$item)
-            {
-                $this->view = new ItemView();
-                $wynik = $this->db_conn->getItems();
-                $this->view->addData("items" , $wynik);
-                $this->view->initContent();
-                $this->layout = new Layout("Items");
-                $this->layout->setView($this->view);
-                $this->layout->render();
-            }
-            else
-            {
-                $this->view = new ShowcaseView();
-                $wynik = $this->db_conn->getItemById($item);
-                $this->view->addData("item" , $wynik);
-                $this->view->initContent();
-                $this->layout = new Layout($wynik->name);
-                $this->layout->setView($this->view);
-                $this->layout->render();
-            }
+            $this->view = new ItemView();
+            $wynik = $this->db_conn->getItems();
+            $this->view->addData("items" , $wynik);
+            $this->view->initContent();
+            $this->layout = new Layout("Items");
+            $this->layout->setView($this->view);
+            $this->layout->render();
+        }
+
+        public function item($item)
+        {
+            $this->view = new ShowcaseView();
+            $wynik = $this->db_conn->getItemById($item);
+            $this->view->addData("item" , $wynik);
+            $this->view->initContent();
+            $this->layout = new Layout($wynik->name);
+            $this->layout->setView($this->view);
+            $this->layout->render();
         }
 
         public function cart()

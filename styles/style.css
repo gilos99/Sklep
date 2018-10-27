@@ -34,7 +34,6 @@ body
 #main
 {
     width : 100%;
-    height: 500px;
     background: #f4f4f4;    
 }
 
@@ -80,6 +79,7 @@ footer
 
 #error
 {
+    height: 500px;
     font-size: 30px;
 }
 
@@ -94,7 +94,7 @@ footer
 #item_main
 {
     width: 500px;
-    height: 100%;
+    height: 700px;
 }
 
 #item_d
@@ -156,4 +156,20 @@ footer
     border-style: solid;
     border-color: #FF8013;
     border-radius: 10px;
+}
+
+#home_main
+{
+    height: 500px;
+}
+
+#sc_main a
+{
+    text-decoration: none;
+}
+
+#sc_main
+{
+    height: 520px;
+    width: 500px;
 }

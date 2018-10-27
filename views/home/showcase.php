@@ -13,7 +13,7 @@
             $this->content = 
             "   
                 <center>
-                    <div id='item_main'>
+                    <div id='sc_main'>
                         <img id='sc_img' width='100%' height='100%' src='{$this->item->img}'/> <div id='sc_menu'><b>Cena : {$this->item->price} zł</b><br /> <a href='#'><div id='addcart'>Dodaj do koszyka</div></a></div><br/>
                         <div id='sc_desc'>
                             <h1>{$this->item->name}</h1> <br />

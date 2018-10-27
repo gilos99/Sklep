@@ -20,6 +20,8 @@ ECHO <<< END
                 <meta charset="utf-8" />
                 <title>$this->title</title>
                 <link rel="stylesheet" type="text/css" href="/sklep/styles/style.css">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script src="/sklep/scripts/navbar.js"></script>
             </head>
             <body>
                 <div id="titlebar">
@@ -41,8 +43,8 @@ ECHO <<< END
                 <div id="main">
                     $this->content
                 </div>
-                <footer>&copy; Jan Gil $this->year</footer>
             </body>
+            <footer>&copy; Jan Gil & Jarosław Żur $this->year</footer>
             </html>
 END;
         }
