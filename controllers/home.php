@@ -22,15 +22,30 @@
             $this->layout->render();
         }
 
-        public function items()
+        public function items($num = false)
         {
-            $this->view = new ItemView();
-            $wynik = $this->db_conn->getItems();
-            $this->view->addData("items" , $wynik);
-            $this->view->initContent();
-            $this->layout = new Layout("Items");
-            $this->layout->setView($this->view);
-            $this->layout->render();
+            if(!$num)
+            {
+                $this->view = new ItemView();
+                $wynik = $this->db_conn->getItems();
+                $this->view->addData("items" , $wynik);
+                $this->view->addData("site" , 1);
+                $this->view->initContent();
+                $this->layout = new Layout("Items");
+                $this->layout->setView($this->view);
+                $this->layout->render();
+            }
+            else
+            {
+                $this->view = new ItemView();
+                $wynik = $this->db_conn->getItems();
+                $this->view->addData("items" , $wynik);
+                $this->view->addData("site" , $num);
+                $this->view->initContent();
+                $this->layout = new Layout("Items");
+                $this->layout->setView($this->view);
+                $this->layout->render();
+            }
         }
 
         public function item($item)

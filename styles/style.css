@@ -96,7 +96,7 @@ footer
 #item_main
 {
     width: 640px;
-    height: 800px;
+    height: 720px;
 }
 
 #item_d
@@ -116,16 +116,19 @@ footer
 #sc_img
 {
     float: left;
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 244px;
     margin-top: 20px;
+    border-style: none;
+    border-width: 1px;
+    border-color: black;
 }
 
 #sc_menu
 {
     float: left;
     margin-top : 20px;
-    width: calc(100% - 250px);  
+    width: calc(100% - 303px);  
     font-size: 25px;
 }
 
@@ -139,6 +142,12 @@ footer
 #sc_desc
 {
     float: left;
+}
+
+#sc_desc h1
+{
+    padding : 5px;
+    background: white;
 }
 
 #sc_menu a
@@ -172,6 +181,41 @@ footer
 
 #sc_main
 {
+    padding : 40px;
     height: 500px;
     width: 500px;
+}
+
+#numbers
+{
+    height: 64px;
+    display: inline-block;
+}
+
+#num_btn
+{
+    float: left;
+    margin-left: 2px;
+    margin-right: 2px;
+    width : 32px;
+    height: 32px;
+    background: #636EFF;
+    font-size: 20px;
+    color : white;
+    text-align: center;
+    border-width: 2px;
+    border-bottom-width: 4px;
+    border-bottom-color : #1727FF;
+    border-right-color : #636EFF;
+    border-left-color : #636EFF;
+    border-top-color : #636EFF;
+    border-style: solid;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+#num_btn a
+{
+    text-decoration: none;
+    color: white;
 }

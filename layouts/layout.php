@@ -20,6 +20,7 @@ ECHO <<< END
                 <meta charset="utf-8" />
                 <title>$this->title</title>
                 <link rel="stylesheet" type="text/css" href="/sklep/styles/style.css">
+                <link rel="shortcut icon" type="image/png" href="/sklep/assets/favicon.ico">
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                 <script src="/sklep/scripts/navbar.js"></script>
             </head>
