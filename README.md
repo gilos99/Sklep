@@ -1,2 +1,2 @@
-Sklep is simple unprofessional web site. This site has been writing in php , jquery , html.
+Sklep is simple unprofessional website. I have been writing it in php , jquery , html.
 
