@@ -5,5 +5,6 @@
     {
         protected $layout;
         protected $view;
+        abstract function init();
     }
 ?>

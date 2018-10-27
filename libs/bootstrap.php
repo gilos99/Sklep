@@ -1,73 +1,75 @@
 <?php
 
-    require_once 'controllers/error.php';
+    include_once 'controllers/error.php';
 
     class Bootstrap
     {
         function __construct()
         {
-            $url = "";
+            $uri = "";
 
-            //jeżeli istnieje zmienna uri w sciezce strony
-            if(isset($_GET['uri']))
+            if(isset($_GET["uri"]))
             {
-                $url = $_GET['uri'];
-            }
-            else
-            {
-                $url = "home";
+                $uri = $_GET["uri"];
             }
 
-            $url = rtrim($url , '/'); //usunięcie '/' z url
-
-            $url = explode('/' , $url); //rozdzielenie url 
-
-            //ustawienie defaultowej strony (jeśli url jest pusty domyślnym controllerem jest home)
-            if($url[0] == "")
+            if($uri == "")
             {
-                $url[0] = 'home';
+                $uri = "home";
             }
 
-            $file = 'controllers/'.$url[0].'.php'; 
+            $uri = rtrim($uri , '/');
+            $url = explode('/' , $uri);
+            
+            $file = 'controllers/'.$url[0].'.php';
 
             if(file_exists($file))
             {
-                require $file;
+                include_once $file;
             }
             else
             {
-                new ErrorController("Nie ma takiego pliku");
-                exit(); // jeżeli nie ma pliku nie wykonuj dalej 
+                $error = new ErrorController("Nie ma takiej strony!");
+                $error->init();
+                exit();
             }
 
             $controller = new $url[0];
 
-            /*
-                *Wywoływanie funkcji w controllerach
-            */
-
-            if(isset($url[2]))
+            if(isset($url[1]))
             {
-                if(method_exists($controller , $url[1]))
+                if(isset($url[2]))
                 {
-                    $controller->{$url[1]}($url[2]);
+                    if(method_exists($controller , $url[1]))
+                    {
+                        $controller->{$url[1]}($url[2]);
+                    }
+                    else
+                    {
+                        $error = new ErrorController("Nie ma takiej strony!");
+                        $error->init();
+                        exit();
+                    }
                 }
                 else
                 {
-                    new ErrorController("Nie ma takiej funkcji");
-                }
-            }   
-            else if(isset($url[1]))
-            {
-                if(method_exists($controller , $url[1]))
-                {
-                    $controller->{$url[1]}();
-                }
-                else
-                {
-                    new ErrorController("Nie ma takiej funkcji");
+                    if(method_exists($controller , $url[1]))
+                    {
+                        $controller->{$url[1]}();
+                    }
+                    else
+                    {
+                        $error = new ErrorController("Nie ma takiej strony!");
+                        $error->init();
+                        exit();
+                    }
                 }
             }
+            else
+            {
+                $controller->init();
+            }
+
         }
     }
 ?>

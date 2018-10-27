@@ -1,0 +1,159 @@
+html
+{
+    font-family : 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body
+{
+    margin : 0;
+}
+
+#titlebar
+{
+    width: 100%;
+    height: 200px;
+    background : white;
+    color : #3652FF;
+    margin-top: -75px;
+}
+
+#titlebar p
+{
+    font-size: 75px;
+    padding-top : 45px;
+}
+
+#nav
+{
+    width : 100%;
+    height: 70px;
+    background : #3652FF;
+    color : white;
+}
+
+#main
+{
+    width : 100%;
+    height: 500px;
+    background: #f4f4f4;    
+}
+
+footer
+{
+    width: 100%;
+    height: 30px;
+    background : #8394FF;
+    color : white;
+    text-align: center;
+    padding-top: 10px; 
+}
+
+#navtable a
+{
+    text-decoration: none;
+    color : white;
+    font-size : 25px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#item_main a
+{
+    text-decoration: none;
+    color : black;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#navtable td
+{
+    padding-top : 15px;
+}
+
+#imgError
+{
+    padding-top : 100px;
+    width: 400px;
+    height: 250px;
+    padding-bottom: 10px;
+}
+
+#error
+{
+    font-size: 30px;
+}
+
+#item
+{
+    height: 150px;
+    float: left;
+    width: 150px;
+    padding: 5px;
+}
+
+#item_main
+{
+    width: 500px;
+    height: 100%;
+}
+
+#item_d
+{
+    width: 100%;
+    height: 40%;
+    background: white;
+}
+
+#item_img
+{
+    width: 100%;
+    height: 60%;
+    background: gray;
+}
+
+#sc_img
+{
+    float: left;
+    width: 250px;
+    height: 250px;
+    margin-top: 20px;
+}
+
+#sc_menu
+{
+    float: left;
+    margin-top : 20px;
+    width: calc(100% - 250px);  
+    font-size: 25px;
+}
+
+#sc_menu b
+{
+    float: left;
+    margin-left: 25%;
+    padding : 20px;
+}
+
+#sc_desc
+{
+    float: left;
+}
+
+#sc_menu a
+{
+    float: left;
+    margin-top: 70px;
+    margin-left: 25%;
+    font-size: 25px;
+    color: white;
+}
+
+
+#addcart
+{
+    background: #FF8013;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #FF8013;
+    border-radius: 10px;
+}

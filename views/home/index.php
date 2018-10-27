@@ -7,7 +7,7 @@
         {
             $this->content = 
             "
-                 
+                
             ";            
         }
     }
