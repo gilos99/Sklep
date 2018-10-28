@@ -4,6 +4,7 @@
     require_once 'views/home/index.php';
     require_once 'views/home/item.php';
     require_once 'views/home/showcase.php';
+    require_once 'views/home/cart.php';
 
     class Home extends Controller
     {
@@ -60,12 +61,36 @@
         }
 
         public function cart()
-        {
-            $this->view = new HomeView();
+        {   
+            $this->view = new CartView();
+            if(isset($_SESSION["cart"]))
+            {
+                $this->view->addData("items" , $_SESSION["cart"]);
+            }
+            else
+            {
+                $this->view->addData("items" , array());
+            }
             $this->view->initContent();
             $this->layout = new Layout("Home");
             $this->layout->setView($this->view);
             $this->layout->render();
+        }
+
+        public function addToCart($num)
+        {
+            $i = $this->db_conn->getItemById($num);
+            $_SESSION["cart"][$i->id] = $i;
+            header('Location: /sklep/home/item/'.$num);
+        }
+
+        public function deleteFromCart($num)
+        {
+            if(isset($_SESSION['cart'][$num]))
+            {
+                unset($_SESSION['cart'][$num]);
+            }
+            header('Location: /sklep/home/cart');
         }
     }
 ?>

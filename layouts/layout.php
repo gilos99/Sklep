@@ -4,6 +4,7 @@
         private $title = "Layout";
         private $contet = "";
         private $year;
+        private $header = "";
 
         function __construct($_title) 
         {
@@ -23,6 +24,7 @@ ECHO <<< END
                 <link rel="shortcut icon" type="image/png" href="/sklep/assets/favicon.ico">
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                 <script src="/sklep/scripts/navbar.js"></script>
+                $this->header
             </head>
             <body>
                 <div id="titlebar">
@@ -53,6 +55,7 @@ END;
         public function setView($view)
         {
             $this->content = $view->getContent();
+            $this->header = $view->getHeader();
         }
     }
 ?>
