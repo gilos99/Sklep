@@ -4,16 +4,16 @@
 
     class ErrorController extends Controller
     {
-        private $data;
+        private $msg;
 
-        function __constructor($_data) {
-            $this->data = $_data;
+        public function __construct($_msg) {
+            $this->msg = $_msg;
         }
 
         public function init()
         {
             $this->view = new ErrorView();
-            $this->view->addData("msg" , $this->data);
+            $this->view->addData("msg" , $this->msg);
             $this->view->initContent();
             $this->layout = new Layout("Error");
             $this->layout->setView($this->view);
