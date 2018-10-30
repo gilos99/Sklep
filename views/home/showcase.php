@@ -9,6 +9,7 @@
         {   
 
             $this->item = $this->data["item"];
+            $this->header = "<script src='/sklep/scripts/sc.js'></script>";
 
             $name = strtoupper($this->item->name);
 
@@ -16,7 +17,7 @@
             "   
                 <center>
                     <div id='sc_main'>
-                        <img id='sc_img' width='100%' height='100%' src='{$this->item->img}'/> <div id='sc_menu'><b>Cena : {$this->item->price} zł</b><br /> <a href='/sklep/home/addToCart/{$this->item->id}'><div id='addcart'>Dodaj do koszyka</div></a></div><br/>
+                        <img id='sc_img' width='100%' height='100%' src='{$this->item->img}'/> <div id='sc_menu'><b>Cena : {$this->item->price} zł</b><br /> <a href='/sklep/home/addToCart/{$this->item->id}'><div id='addcart' onclick='addedToCart()'>Dodaj do koszyka</div></a></div><br/>
                         <div id='sc_desc'>
                             <h1>{$name}</h1> <br />
                             {$this->item->descr}

@@ -172,6 +172,8 @@ footer
 #home_main
 {
     height: 500px;
+    width: 70%;
+    margin-left: 15%;
 }
 
 #sc_main a
@@ -282,4 +284,22 @@ footer
     padding-top: 40px;
     padding-left : 30px;
     padding-right : 30px;
+}
+
+#small_img 
+{
+    float:left;
+    width: calc(40% - 12px);
+    height: calc(50% - 12px);
+    background: white;
+    margin:6px;
+}
+
+#big_img 
+{
+    float:left;
+    width: calc(60% - 12px);
+    height: calc(100% - 12px);
+    background: white;
+    margin:6px;
 }

@@ -1,5 +1,6 @@
 <?php
     require_once "models/items.php";
+    require_once "controllers/error.php";
 
     class Connector
     {
@@ -14,7 +15,9 @@
             $this->mysqli = new mysqli($this->host , $this->user , $this->password , $this->db_name);
             if($this->mysqli->connect_errno)
             {
-                echo "DB CONNECTION FAILED";
+                $error = new ErrorController("Nie można połączyć z bazą danych!");
+                $error->init();
+                exit();
             }
         }
 
