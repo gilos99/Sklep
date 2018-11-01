@@ -1,4 +1,4 @@
-var itemsLenght = $("div[class*='i_cart']").length * ($('.i_cart').height() + 12);
+var itemsLenght = ($("div[class*='i_cart']").length * ($('.i_cart').height() + 12)) + $("#cart_suma").height();
 
 if(itemsLenght > 500)
 {

@@ -33,6 +33,12 @@
             $this->content = 
             "   
                 <center>
+                    <div id='item_search'>
+                        <form action='/sklep/home/search' method='POST'>
+                            <input id='tb_search' type='text' name='text'>
+                            <input id='btn_search' type='submit' value='Wyszukaj'>
+                        </form>
+                    </div>
                     <div id='item_main'>
                         <div id='items_grid'>
                             $this->rows

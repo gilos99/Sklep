@@ -4,21 +4,26 @@
 
     class Connector
     {
-        private $host = "127.0.0.1";
-        private $user = "root";
-        private $password = "";
-        private $db_name = "shop";
-        private $mysqli;
+        private $conn;
 
         public function __construct()
         {
-            $this->mysqli = new mysqli($this->host , $this->user , $this->password , $this->db_name);
-            if($this->mysqli->connect_errno)
-            {
-                $error = new ErrorController("Nie można połączyć z bazą danych!");
-                $error->init();
-                exit();
-            }
+            $this->conn = new PDO('mysql:host=127.0.0.1;dbname=shop;charset=utf8' , 'root' , '');
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        }
+
+        public function addOrder($order)
+        {
+            $sql = "INSERT INTO zamowienia (imie , nazwisko , adres , bank , rabat , price) VALUES (:name , :surname , :adress , :bank , :rabat , :price);";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':name' , $order->name);
+            $stmt->bindParam(':surname' , $order->surname);
+            $stmt->bindParam(':adress' , $order->adress);
+            $stmt->bindParam(':bank' , $order->bank);
+            $stmt->bindParam(':rabat' , $order->rabat);
+            $stmt->bindParam(':price' , $order->price);
+            $stmt->execute();
         }
 
         public function getItems()
@@ -27,17 +32,14 @@
 
             $sql = "SELECT * FROM items";
 
-            if($result = $this->mysqli->query($sql))
-            {
-                while($row = $result->fetch_row())
-                {
-                    $item = new Item();
-                    $item->setItem($row[0] , $row[1] , $row[2] , $row[3] , $row[4]);
-                    array_push($wynik , $item);
-                }
-            }
+            $stmt = $this->conn->query($sql);
 
-            $result->close();
+            while($row = $stmt->fetch())
+            {
+                $item = new Item();
+                $item->setItem($row["id"] , $row["name"] , $row["price"] , $row["descr"] , $row["img"]);
+                array_push($wynik , $item);
+            }
 
             return $wynik;
         }
@@ -49,13 +51,13 @@
 
             $sql = "select * from items where id = ".$id."";
 
-            if($result = $this->mysqli->query($sql))
+            $stmt = $this->conn->query($sql);
+
+            while($row = $stmt->fetch())
             {
-                while ($row = $result->fetch_row()) {
-                    $wynik->setItem($row[0] , $row[1] , $row[2] , $row[3] , $row[4]);
-                }
+                $wynik->setItem($row["id"] , $row["name"] , $row["price"] , $row["descr"] , $row["img"]);
             }
-            
+
             return $wynik;
         }
     }

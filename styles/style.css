@@ -99,6 +99,12 @@ footer
     height: 720px;
 }
 
+#item_search
+{
+    width: 640px;
+    height: 100px;
+}
+
 #item_d
 {
     width: 100%;
@@ -162,11 +168,13 @@ footer
 
 #addcart
 {
-    background: #FF8013;
-    border-width: 5px;
+    background: #636EFF;
     border-style: solid;
-    border-color: #FF8013;
-    border-radius: 10px;
+    border-bottom-width: 4px;
+    border-bottom-color : #1727FF;
+    border-right-color : #636EFF;
+    border-left-color : #636EFF;
+    border-top-color : #636EFF;
 }
 
 #home_main
@@ -302,4 +310,114 @@ footer
     height: calc(100% - 12px);
     background: white;
     margin:6px;
+}
+
+#cart_suma
+{
+    float : right;
+    margin-right: 20px;
+    height : 40px;
+    font-size: 20px;
+    padding-top : 15px;
+}
+
+#tb_search
+{
+    float : left;
+    width : 70%;
+    margin-left : 2%;
+    margin-top : 40px;
+    height : 29px;
+    border-color: #3652FF; 
+    border-style: solid; 
+    background: white;
+}
+
+#btn_search
+{
+    float : left;
+    margin-left : 2%; 
+    width: 25%;
+    height : 35px;
+    margin-top : 40px;
+    background: white;
+    border-color: #3652FF;
+    border-style: solid; 
+    font-weight: bold;
+    font-size: 15px;
+    color : #8394FF;
+}
+
+#zamow
+{
+    float: left;
+    margin-left : calc(50% - 50px);
+    margin-top: 10px;
+    width : 120px;
+    height : 20px;
+    font-size: 20px;
+    padding-bottom : 7px;
+    background: #636EFF;
+    border-style: solid;
+    border-bottom-width: 4px;
+    border-bottom-color : #1727FF;
+    border-right-color : #636EFF;
+    border-left-color : #636EFF;
+    border-top-color : #636EFF;
+}
+
+#zamow a
+{
+    text-decoration: none;
+    color : white;
+}
+
+#order_main
+{
+    padding-top : 10%;
+    margin-left : calc(50% - 300px);
+    width : 600px;
+    height : 500px;
+    background : white;
+}
+
+#order_main h1
+{
+    margin: 0px;
+}
+
+#order_main form
+{
+    float: left;
+    width : 55%;
+    font-weight: bold;
+    margin: 20px;
+    border-right-color: black;
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+
+#order_main form input , select
+{
+    border-style: solid;
+    border-color: #3652FF;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#submit_order
+{
+    background : white;
+    width: 100px;
+    height : 25px;
+    font-weight: bold;
+    color : #8394FF;
+}
+
+#order_info
+{
+    margin-top: 20px;
+    float : left;
+    width : 35%;
+    height: 40%;
 }
