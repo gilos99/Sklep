@@ -24,6 +24,16 @@
             $stmt->bindParam(':rabat' , $order->rabat);
             $stmt->bindParam(':price' , $order->price);
             $stmt->execute();
+            $last = $this->conn->lastInsertId();
+
+            $items = $_SESSION["cart"];
+
+            foreach ($items as $key => $value) {
+                $sql = "INSERT INTO item_order (id_zamowienia , id_produktu) VALUES ('{$last}' , '{$value->id}');";
+                $this->conn->query($sql);
+            }
+
+            unset($_SESSION["cart"]);
         }
 
         public function getItems()

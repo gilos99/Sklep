@@ -184,9 +184,7 @@
 
             $this->db_conn->addOrder($order);
 
-            unset($_SESSION["cart"]);
-
-            header('Location: /sklep/home/order');
+            header('Location: /sklep/home');
         }
 
         private function containsText($string , $txt)
