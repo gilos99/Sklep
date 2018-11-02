@@ -5,15 +5,27 @@
         private $contet = "";
         private $year;
         private $header = "";
+        private $user_links;
 
         function __construct($_title) 
         {
             $this->year = date("Y");
             $this->title = $_title;
+            $this->user_links = "";
         }
 
         public function render() 
         {
+            if(isset($_SESSION["user"]))
+            {
+                $this->user_links .= "<a href=\"/sklep/user/logout\">Wyloguj się</a>";
+            }
+            else
+            {
+                $this->user_links .= "<a href=\"/sklep/user/login\">Zaloguj się</a>";
+                $this->user_links .= "<a href=\"/sklep/user/register\">Zarejestruj się</a>";
+            }
+
 ECHO <<< END
             <!DOCTYPE html>
             <html>
@@ -37,8 +49,7 @@ ECHO <<< END
                                 <td>
                                     <a href="/sklep/home">Strona Główna</a>
                                     <a href="/sklep/home/itemsRefresh">Produkty</a>
-                                    <a href="/sklep/user/login">Zaloguj się</a>
-                                    <a href="/sklep/user/register">Zarejestruj się</a>
+                                    {$this->user_links}
                                     <a href="/sklep/home/cart">Koszyk</a>
                                 </td>
                             </tr>

@@ -421,3 +421,69 @@ footer
     width : 35%;
     height: 40%;
 }
+
+#login_main
+{
+    width: 60%;
+    margin-left : 25%;
+    height: 500px;
+    background : white;
+}
+
+#login_main form
+{
+    float: left;
+    width : 55%;
+    font-weight: bold;
+    margin: 20px;
+    border-right-color: black;
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+
+#login_main form input
+{
+    border-style: solid;
+    border-color: #3652FF;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#submit_login
+{
+    background : white;
+    width: 100px;
+    height : 25px;
+    font-weight: bold;
+    color : #8394FF;
+}
+
+#pass_tb
+{
+    margin-left : 107px;
+}
+
+#login_main h1
+{
+    margin-top:0px;
+    padding-top: 150px;
+}
+
+#repass_tb
+{
+    margin-left : 42px;
+}
+
+#email_reg
+{
+    margin-left: 107px;
+}
+
+#submit_reg
+{
+    background : white;
+    width: 120px;
+    height : 25px;
+    font-weight: bold;
+    color : #8394FF;
+}

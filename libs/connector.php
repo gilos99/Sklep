@@ -1,6 +1,7 @@
 <?php
     require_once "models/items.php";
     require_once "controllers/error.php";
+    require_once "models/user.php";
 
     class Connector
     {
@@ -11,6 +12,71 @@
             $this->conn = new PDO('mysql:host=127.0.0.1;dbname=shop;charset=utf8' , 'root' , '');
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        }
+
+        public function getUser($login , $password)
+        {
+            $sql = "SELECT * FROM user where login = :login and password = :password";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':login' , $login);
+            $stmt->bindParam(':password' , $password);
+            $stmt->execute();
+
+            $user = new UserModel();
+            
+            $row = $stmt->fetch();
+
+            $user->id = $row["id"];
+            $user->login = $row["login"];
+            $user->password = $row["password"];
+            $user->email = $row["email"];
+
+            return $user;
+        }
+
+        public function createUser($user) {
+            $sql = "INSERT INTO user (login , password , email) VALUES (:login , :password , :email)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(":login" , $user->login);
+            $stmt->bindParam(":password" , $user->password);
+            $stmt->bindParam(":email" , $user->email);
+            $stmt->execute();
+        }
+
+        public function isUserValid($login , $password)
+        {
+            $sql = "select * from user where login = :login and password = :password";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(":login" , $login);
+            $stmt->bindParam(":password" , $password);
+            $stmt->execute();
+
+            $i = 0;
+
+            while($row = $stmt->fetch())
+            {
+                $i++;
+            }
+
+            return $i > 0;
+        }
+
+        public function isLoginExist($login)
+        {
+            $sql = "select * from user where login = :login";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(":login" , $login);
+            $stmt->execute();
+
+            $i = 0;
+
+            while($row = $stmt->fetch())
+            {
+                $i++;
+            }
+
+            return $i > 0;
         }
 
         public function addOrder($order)
