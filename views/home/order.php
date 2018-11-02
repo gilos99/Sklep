@@ -15,6 +15,14 @@
 
             $this->header = "<script src='/sklep/scripts/lib.js'></script>";
 
+            $error = "";
+
+            if(isset($_SESSION["order_fail"]))
+            {
+                $error = "<b style='color : red;'>Wypełnij wszytkie wymagane pola!</b>";
+                unset($_SESSION["order_fail"]);
+            }
+
             $this->content = 
             "
                 <div id='order_main'>
@@ -35,13 +43,14 @@
                             <option>Alior bank</option>
                         </select><br />
                         Kod rabatowy : <input type='text' name='rabat'>
-                        <center><input id='submit_order' type='submit' value='Wyślij' onclick='showAlert(\"Złożono zamówienie\")'></center>
+                        <center><input id='submit_order' type='submit' value='Wyślij'></center>
+                        $error
                     </form>
                     <div id='order_info'>
                         <p>Cena : $price zł </p>
                         <p>Ilość produktów : $count</p>
-
                     </div>
+                    
                 </div>
             ";            
         }

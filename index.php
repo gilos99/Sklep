@@ -4,7 +4,6 @@
     
     session_start();
     //error_reporting(0);
-
     $app = new Bootstrap();
 
 ?>

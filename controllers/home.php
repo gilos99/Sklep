@@ -134,6 +134,10 @@
         public function order()
         {
             $this->view = new OrderView();
+            if(!isset($_SESSION["cart"]))
+            {
+                $_SESSION["cart"] = array();
+            }
             $this->view->addData("items" , $_SESSION["cart"]);
             $this->view->initContent();
             $this->layout = new Layout("Złóż zamówienie");
@@ -157,14 +161,12 @@
 
             if(isset($imie) && isset($nazwisko) && isset($adres) && isset($bank))
             {
-            }
-            else
-            {
-                $imie = "NONE";
-                $nazwisko = "NONE";
-                $adres = "NONE";
-                $bank = "NONE";
-                $rabat = "NONE";
+                if($imie == "" || $nazwisko == "" || $adres == "")
+                {
+                    $_SESSION["order_fail"] = true;
+                    $this->order();
+                    exit();
+                }
             }
 
             $order = new Order();
@@ -183,6 +185,8 @@
             }
 
             $this->db_conn->addOrder($order);
+
+            echo "<script>alert(\"Złożono zamówienie!\");</script>";
 
             header('Location: /sklep/home');
         }
