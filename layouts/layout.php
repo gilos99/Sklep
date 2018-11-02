@@ -37,6 +37,8 @@ ECHO <<< END
                                 <td>
                                     <a href="/sklep/home">Strona Główna</a>
                                     <a href="/sklep/home/itemsRefresh">Produkty</a>
+                                    <a href="/sklep/user/login">Zaloguj się</a>
+                                    <a href="/sklep/user/register">Zarejestruj się</a>
                                     <a href="/sklep/home/cart">Koszyk</a>
                                 </td>
                             </tr>
