@@ -7,6 +7,8 @@
     require_once 'views/home/cart.php';
     require_once 'views/home/order.php';
     require_once 'models/order.php';
+    require_once 'models/comment.php';
+
     class Home extends Controller
     {
         private $db_conn;
@@ -61,6 +63,8 @@
         {
             $this->view = new ShowcaseView();
             $wynik = $this->db_conn->getItemById($item);
+            $comments = $this->db_conn->getCommentsByItemId($item);
+            $this->view->addData("comments" , $comments);
             $this->view->addData("item" , $wynik);
             $this->view->initContent();
             $this->layout = new Layout($wynik->name);
@@ -189,6 +193,22 @@
             echo "<script>alert(\"Złożono zamówienie!\");</script>";
 
             header('Location: /sklep/home');
+        }
+
+        public function addcomment()
+        {
+            $item = json_decode($_POST["item"]);
+            $user = json_decode($_POST["user"]);
+            $text = $_POST["text"];
+
+            $comment = new Comment();
+            $comment->item = $item;
+            $comment->user = $user;
+            $comment->text = $text;
+
+            $this->db_conn->createComment($comment);
+
+            header('Location: /sklep/home/item/'.$item->id);
         }
 
         private function containsText($string , $txt)

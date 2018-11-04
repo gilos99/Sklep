@@ -192,7 +192,7 @@ footer
 #sc_main
 {
     padding : 40px;
-    height: 500px;
+    height: 600px;
     width: 500px;
 }
 
@@ -486,4 +486,39 @@ footer
     height : 25px;
     font-weight: bold;
     color : #8394FF;
+}
+
+.comment
+{
+    width: 100%;
+    background: white;
+    border-bottom-width: 6px;
+    border-bottom-color: whitesmoke;
+    border-bottom-style: solid;
+}
+
+
+#ta_comment
+{
+    resize: none;
+    width : 80%;
+    height: 100px;
+    padding : 6px;
+    margin-top : 10px;
+}
+
+#add_comment form
+{
+    width: 100%;
+    background : white;
+}
+
+#comm_sub
+{
+    background : white;
+    width: 150px;
+    height : 25px;
+    font-weight: bold;
+    color : #8394FF;
+    margin-bottom: 10px;
 }

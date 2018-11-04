@@ -2,6 +2,8 @@
     require_once "models/items.php";
     require_once "controllers/error.php";
     require_once "models/user.php";
+    require_once "models/comment.php";
+    require_once "models/items.php";
 
     class Connector
     {
@@ -14,13 +16,32 @@
             $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         }
 
+        public function getUserById($id)
+        {
+            $sql = "SELECT * FROM user WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id' , $id);
+            $stmt->execute();
+
+            $user = new UserModel();
+
+            $row = $stmt->fetch();
+
+            $user->id = $row["id"];
+            $user->login = $row["login"];
+            $user->password = $row["password"];
+            $user->email = $row["email"];
+
+            return $user;
+        }
+
         public function getUser($login , $password)
         {
             $sql = "SELECT * FROM user where login = :login and password = :password";
 
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':login' , $login);
-            $stmt->bindParam(':password' , $password);
+            $stmt->bindParam(':password' , md5($password));
             $stmt->execute();
 
             $user = new UserModel();
@@ -39,7 +60,7 @@
             $sql = "INSERT INTO user (login , password , email) VALUES (:login , :password , :email)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(":login" , $user->login);
-            $stmt->bindParam(":password" , $user->password);
+            $stmt->bindParam(":password" , md5($user->password));
             $stmt->bindParam(":email" , $user->email);
             $stmt->execute();
         }
@@ -49,7 +70,7 @@
             $sql = "select * from user where login = :login and password = :password";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(":login" , $login);
-            $stmt->bindParam(":password" , $password);
+            $stmt->bindParam(":password" , md5($password));
             $stmt->execute();
 
             $i = 0;
@@ -118,6 +139,36 @@
             }
 
             return $wynik;
+        }
+
+        public function getCommentsByItemId($id)
+        {
+            $comments = array();
+
+            $sql = "SELECT * FROM comment where id_item = {$id}";
+            $stmt = $this->conn->query($sql);
+
+            while($row = $stmt->fetch())
+            {
+                $comment = new Comment();
+                $comment->id = $row["id"];
+                $comment->item = $this->getItemById($row["id_item"]);
+                $comment->user = $this->getUserById($row["id_user"]);
+                $comment->text = $row["text"];
+                array_push($comments , $comment);
+            }
+
+            return $comments;
+        }
+
+        public function createComment($comment)
+        {
+            $sql = "INSERT INTO comment (id_item , id_user , text) VALUES (:id_item , :id_user , :text)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id_item' , $comment->item->id);
+            $stmt->bindParam(':id_user' , $comment->user->id);
+            $stmt->bindParam(':text' , $comment->text);
+            $stmt->execute();
         }
 
         public function getItemById($id)
