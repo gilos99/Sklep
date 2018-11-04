@@ -4,7 +4,7 @@ if(isNaN(commentsHeight))
 {
     if(isNaN($("#add_comment").height()))
     {
-        commentsHeight = (($("div[class*='comment']").length * 1.5) *  ($('.comment').height() + 12));
+        commentsHeight = (($("div[class*='comment']").length * 1.5) *  ($('.comment').height() + 12)) + 50;
     }
     else
     {
