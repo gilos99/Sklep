@@ -5,26 +5,15 @@
         private $contet = "";
         private $year;
         private $header = "";
-        private $user_links;
 
         function __construct($_title) 
         {
             $this->year = date("Y");
             $this->title = $_title;
-            $this->user_links = "";
         }
 
         public function render() 
         {
-            if(isset($_SESSION["user"]))
-            {
-                $this->user_links .= "<a href=\"/sklep/user/logout\">Wyloguj się</a>";
-            }
-            else
-            {
-                $this->user_links .= "<a href=\"/sklep/user/login\">Zaloguj się</a>";
-                $this->user_links .= "<a href=\"/sklep/user/register\">Zarejestruj się</a>";
-            }
 
 ECHO <<< END
             <!DOCTYPE html>
@@ -40,7 +29,7 @@ ECHO <<< END
             </head>
             <body>
                 <div id="titlebar">
-                    <center><p>Sklep</p></center>
+                    <center><p>Meblexpol</p></center>
                 </div>
                 <div id="nav">
                     <center>
@@ -49,7 +38,6 @@ ECHO <<< END
                                 <td>
                                     <a href="/sklep/home">Strona Główna</a>
                                     <a href="/sklep/home/itemsRefresh">Produkty</a>
-                                    {$this->user_links}
                                     <a href="/sklep/home/cart">Koszyk</a>
                                 </td>
                             </tr>
@@ -60,7 +48,7 @@ ECHO <<< END
                     $this->content
                 </div>
             </body>
-            <footer>&copy; Jan Gil & Jarosław Żur $this->year</footer>
+            <footer>&copy; Jan Gil $this->year</footer>
             </html>
 END;
         }

@@ -13,7 +13,7 @@ body
     width: 100%;
     height: 200px;
     background : white;
-    color : #3652FF;
+    color : rgb(63, 16, 2);
     margin-top: -75px;
 }
 
@@ -27,7 +27,7 @@ body
 {
     width : 100%;
     height: 70px;
-    background : #3652FF;
+    background : rgb(63, 16, 2);
     color : white;
 }
 
@@ -41,7 +41,7 @@ footer
 {
     width: 100%;
     height: 30px;
-    background : #8394FF;
+    background : rgb(59, 25, 21);
     color : white;
     text-align: center;
     padding-top: 10px; 
@@ -168,13 +168,13 @@ footer
 
 #addcart
 {
-    background: #636EFF;
+    background: rgb(59, 25, 21);
     border-style: solid;
     border-bottom-width: 4px;
-    border-bottom-color : #1727FF;
-    border-right-color : #636EFF;
-    border-left-color : #636EFF;
-    border-top-color : #636EFF;
+    border-bottom-color : rgb(34, 10, 7);
+    border-right-color :  rgb(59, 25, 21);
+    border-left-color :  rgb(59, 25, 21);
+    border-top-color :  rgb(59, 25, 21);
 }
 
 #home_main
@@ -209,16 +209,16 @@ footer
     margin-right: 2px;
     width : 32px;
     height: 32px;
-    background: #636EFF;
+    background: rgb(59, 25, 21);
     font-size: 20px;
     color : white;
     text-align: center;
     border-width: 2px;
     border-bottom-width: 4px;
-    border-bottom-color : #1727FF;
-    border-right-color : #636EFF;
-    border-left-color : #636EFF;
-    border-top-color : #636EFF;
+    border-bottom-color : rgb(34, 10, 7);
+    border-right-color : rgb(59, 25, 21);
+    border-left-color : rgb(59, 25, 21);
+    border-top-color :rgb(59, 25, 21);
     border-style: solid;
     border-radius: 2px;
     font-weight: bold;
@@ -328,7 +328,7 @@ footer
     margin-left : 2%;
     margin-top : 40px;
     height : 29px;
-    border-color: #3652FF; 
+    border-color: rgb(63, 16, 2); 
     border-style: solid; 
     background: white;
 }
@@ -341,11 +341,11 @@ footer
     height : 35px;
     margin-top : 40px;
     background: white;
-    border-color: #3652FF;
+    border-color: rgb(63, 16, 2);
     border-style: solid; 
     font-weight: bold;
     font-size: 15px;
-    color : #8394FF;
+    color : rgb(59, 25, 21);
 }
 
 #zamow
@@ -357,13 +357,13 @@ footer
     height : 20px;
     font-size: 20px;
     padding-bottom : 7px;
-    background: #636EFF;
+    background: rgb(59, 25, 21);
     border-style: solid;
     border-bottom-width: 4px;
-    border-bottom-color : #1727FF;
-    border-right-color : #636EFF;
-    border-left-color : #636EFF;
-    border-top-color : #636EFF;
+    border-bottom-color : rgb(34, 10, 7);
+    border-right-color : rgb(59, 25, 21);
+    border-left-color : rgb(59, 25, 21);
+    border-top-color : rgb(59, 25, 21);
 }
 
 #zamow a
@@ -400,7 +400,7 @@ footer
 #order_main form input , select
 {
     border-style: solid;
-    border-color: #3652FF;
+    border-color: rgb(63, 16, 2);
     margin-bottom: 5px;
     margin-top: 5px;
 }
@@ -411,7 +411,7 @@ footer
     width: 100px;
     height : 25px;
     font-weight: bold;
-    color : #8394FF;
+    color : rgb(59, 25, 21);
 }
 
 #order_info
@@ -444,7 +444,7 @@ footer
 #login_main form input
 {
     border-style: solid;
-    border-color: #3652FF;
+    border-color: rgb(63, 16, 2);
     margin-bottom: 5px;
     margin-top: 5px;
 }
@@ -455,7 +455,7 @@ footer
     width: 100px;
     height : 25px;
     font-weight: bold;
-    color : #8394FF;
+    color : rgb(59, 25, 21);
 }
 
 #pass_tb
@@ -485,7 +485,7 @@ footer
     width: 120px;
     height : 25px;
     font-weight: bold;
-    color : #8394FF;
+    color : rgb(59, 25, 21);
 }
 
 .comment
@@ -519,6 +519,6 @@ footer
     width: 150px;
     height : 25px;
     font-weight: bold;
-    color : #8394FF;
+    color : rgb(59, 25, 21);
     margin-bottom: 10px;
 }

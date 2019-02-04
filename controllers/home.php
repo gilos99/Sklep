@@ -1,6 +1,4 @@
 <?php
-    require_once 'libs/controller.php';
-    require_once 'libs/connector.php';
     require_once 'views/home/index.php';
     require_once 'views/home/item.php';
     require_once 'views/home/showcase.php';
@@ -11,12 +9,12 @@
 
     class Home extends Controller
     {
-        private $db_conn;
         private $s_text;
+        private $items;
 
         function __construct() {
-            $this->db_conn = new Connector();
             $this->s_text = "";
+            $this->items = array((new Item())->setItem(1 , "Biurko" , 40 , "Biurko gamingowe." , "/sklep/assets/images/biurko.png") , (new Item())->setItem(2 , "Krzesło" , 20 , "Krzesło takie do siedzenia." , "/sklep/assets/images/krzeslo.png") , (new Item())->setItem(3 , "Łóżko" , 70 , "Łóżko drewniane." , "/sklep/assets/images/lozko.png") , (new Item())->setItem(4 , "Stolik" , 20 , "Stół do kawy." , "/sklep/assets/images/stol.png") , (new Item())->setItem(5 , "Szafa" , 120 , "Szafka na ubrania." , "/sklep/assets/images/szafka.png"));
         }
 
         public function init() 
@@ -24,7 +22,7 @@
             unset($_SESSION["items"]);
             $this->view = new HomeView();
             $this->view->initContent();
-            $this->layout = new Layout("Sklep");
+            $this->layout = new Layout("Meblexpol");
             $this->layout->setView($this->view);
             $this->layout->render();
         }
@@ -32,9 +30,15 @@
         public function items($num = false)
         {
 
+            if(isset($_SESSION["email"]))
+            {
+                echo $_SESSION["email"];
+                unset($_SESSION["email"]);
+            }
+
             if(!isset($_SESSION["items"]))
             {
-                $_SESSION["items"] = $this->db_conn->getItems();
+                $_SESSION["items"] = $this->items;
             }
 
             if(!$num)
@@ -43,7 +47,7 @@
                 $this->view->addData("items" , $_SESSION["items"]);
                 $this->view->addData("site" , 1);
                 $this->view->initContent();
-                $this->layout = new Layout("Sklep");
+                $this->layout = new Layout("Meblexpol");
                 $this->layout->setView($this->view);
                 $this->layout->render();
             }
@@ -62,9 +66,7 @@
         public function item($item)
         {
             $this->view = new ShowcaseView();
-            $wynik = $this->db_conn->getItemById($item);
-            $comments = $this->db_conn->getCommentsByItemId($item);
-            $this->view->addData("comments" , $comments);
+            $wynik = $this->items[$item - 1];
             $this->view->addData("item" , $wynik);
             $this->view->initContent();
             $this->layout = new Layout($wynik->name);
@@ -88,7 +90,7 @@
             }
             else
             {
-                $this->view->addData("items" , array());
+                $this->view->addData("items" , $this->items);
             }
             $this->view->initContent();
             $this->layout = new Layout("Koszyk");
@@ -98,9 +100,10 @@
 
         public function addToCart($num)
         {
-            $i = $this->db_conn->getItemById($num);
+            $n = (Integer)$num;
+            $i = $this->items[$num - 1];
             $_SESSION["cart"][$i->id] = $i;
-            header('Location: /sklep/home/item/'.$num);
+            header('Location: /sklep/home/item/'.$n);
         }
 
         public function deleteFromCart($num)
@@ -114,7 +117,7 @@
 
         public function search()
         {
-            $itm = $this->db_conn->getItems();
+            $itm = $this->items;
 
             if(isset($_POST["text"]))
             {
@@ -138,77 +141,122 @@
         public function order()
         {
             $this->view = new OrderView();
-            if(!isset($_SESSION["cart"]))
-            {
-                $_SESSION["cart"] = array();
-            }
             $this->view->addData("items" , $_SESSION["cart"]);
             $this->view->initContent();
-            $this->layout = new Layout("Złóż zamówienie");
+            $this->layout = new Layout("Koszyk");
             $this->layout->setView($this->view);
             $this->layout->render();
         }
 
         public function submitOrder()
         {
-            $imie = $_POST["imie"];
-            $nazwisko = $_POST["nazwisko"];
-            $adres = $_POST["adres"];
-            $bank = $_POST["bank"];
-            $rabat = $_POST["rabat"];
+            $o = new Order();
+            $o->name = $_POST["imie"];
+            $o->last_name = $_POST["nazwisko"];
+            $o->address = $_POST["adres"];
+            $o->email = $_POST["email"];
+            $o->price = $_POST["price"];
+            $o->items = $_SESSION["cart"];
 
-            $price = 0;
-
-            foreach ($_SESSION["cart"] as $key => $value) {
-                $price += $value->price;
-            }
-
-            if(isset($imie) && isset($nazwisko) && isset($adres) && isset($bank))
+            if($this->sendOrderEmail($o))
             {
-                if($imie == "" || $nazwisko == "" || $adres == "")
-                {
-                    $_SESSION["order_fail"] = true;
-                    $this->order();
-                    exit();
-                }
-            }
-
-            $order = new Order();
-            $order->name = $imie;
-            $order->surname = $nazwisko;
-            $order->adress = $adres;
-            $order->bank = $bank;
-            $order->price = $price;
-            if(isset($rabat))
-            {
-                $order->rabat = $rabat;
+                unset($_SESSION["cart"]);
+                $_SESSION["email"] = "<script>alert('Złożono zamówienie!')</script>";
             }
             else
             {
-                $order->rabat = " ";
+                echo "Something went wrong!";
+                $_SESSION["email"] = "<script>alert('Wykryto problem z połączeniem! Spróbuj jeszcze raz!')</script>";
             }
-
-            $this->db_conn->addOrder($order);
-
-            echo "<script>alert(\"Złożono zamówienie!\");</script>";
-
-            header('Location: /sklep/home');
+            header("Location: /sklep/home/items");
         }
 
-        public function addcomment()
+        private function sendOrderEmail($order)
         {
-            $item = json_decode($_POST["item"]);
-            $user = json_decode($_POST["user"]);
-            $text = $_POST["text"];
+            require_once "mailer/src/PHPMailer.php";
+            require_once "mailer/src/Exception.php";
+            require_once "mailer/src/SMTP.php";
 
-            $comment = new Comment();
-            $comment->item = $item;
-            $comment->user = $user;
-            $comment->text = $text;
+            ini_set("SMTP","ssl://smtp.gmail.com"); 
+            ini_set("smtp_port","465"); 
+            $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
-            $this->db_conn->createComment($comment);
+            $success = false;
 
-            header('Location: /sklep/home/item/'.$item->id);
+            try
+            {
+                $mail->CharSet = 'UTF-8';
+                $mail->SMTPAuth = true;
+                $mail->Host = "smtp.gmail.com"; 
+                $mail->SMTPSecure = "ssl";
+                $mail->Username = "testphpemail123123@gmail.com"; 
+                $mail->Password = "zaq1@WSX"; 
+                $mail->Port = "465";
+                $mail->From = "testphpemail123123@gmail.com";
+                $mail->isSMTP();  
+                $rec1="testphpemail123123@gmail.com";
+                $mail->AddAddress($rec1);
+                $mail->Subject  = "Nowe zamówienie";
+
+                $products = "";
+
+                foreach ($order->items as $key => $value) {
+                    $products .= 
+                    "
+                    <tr>
+                        <td>{$value->name}</td>
+                        <td>{$value->price} zł</td>
+                    <tr/>
+
+                    ";
+                }
+
+                $mail->Body     = "
+
+                    <html>
+                        <head>
+
+                        </head>
+                        <body>
+                            <table>
+                                <tr>
+                                    <th>Imie </th>
+                                    <td>{$order->name}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{$order->email}</td>
+                                </tr>
+                                <tr>
+                                    <th>Adres</th>
+                                    <td>{$order->address}</td>
+                                </tr>
+                                <tr>
+                                    <th>Produkty</th>
+                                </tr>
+                                {$products}
+                                <tr>
+                                    <th>SUMA</th>
+                                    <td>{$order->price} zł</td>
+                                </tr>
+                            </table>
+                        </body>
+                    </html>
+            
+                ";
+                $mail->isHTML(true);
+                $mail->WordWrap = 200;
+                $success = $mail->Send();
+            }
+            catch(phpmailerException $e )
+            { 
+                echo $e->errorMessage();
+            }
+            catch (Exception $e) {
+                echo $e->getMessage();
+            }
+
+            return $success;
         }
 
         private function containsText($string , $txt)

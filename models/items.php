@@ -13,6 +13,7 @@
             $this->price = $_price;
             $this->descr = $_descr;
             $this->img = $_img;
+            return $this;
         }
     }
 ?>

@@ -1,12 +1,11 @@
 <?php
     class Order
     {
-        public $id;
         public $name;
         public $surname;
-        public $adress;
-        public $bank;
-        public $rabat;
+        public $address;
         public $price;
+        public $email;
+        public $items;
     }
 ?>

@@ -35,6 +35,7 @@
                         Imie : <input type='text' name='imie' > <br />
                         Nazwisko : <input type='text' name='nazwisko'> <br />
                         Adres : <input type='text' name='adres'> <br />
+                        E-mail : <input type='text' name='email' > <br />
                         Bank : <select name='bank'>
                             <option>M-bank</option>
                             <option>PKO</option>
@@ -42,7 +43,7 @@
                             <option>Santander</option>
                             <option>Alior bank</option>
                         </select><br />
-                        Kod rabatowy : <input type='text' name='rabat'>
+                        <input type='hidden' name='price' value='{$price}' >
                         <center><input id='submit_order' type='submit' value='Wyślij'></center>
                         $error
                     </form>

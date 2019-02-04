@@ -16,16 +16,17 @@
             if(isset($_SESSION["cart"]) && count($_SESSION["cart"]) > 0)
             {
                 $order_btn = "<div id='zamow'><a href='/sklep/home/order'>Zamów</a></div>";
+                foreach ($itemy as $key => $value) {
+                    $content .= "<div id='cart_item' class='i_cart'><img src='$value->img' width='100%'  height='100%'/><div id='cart_item_name'>$value->name</div><div id='cart_item_price'>$value->price zł</div> <div id='delete_btn'><a href='/sklep/home/deleteFromCart/{$value->id}'>X</a></div></div>";
+                    $suma += $value->price;
+                }   
             }
             else 
             {
                 $order_btn = "<p><b>Koszyk pusty</b></p>";
             }
 
-            foreach ($itemy as $key => $value) {
-                $content .= "<div id='cart_item' class='i_cart'><img src='$value->img' width='100%'  height='100%'/><div id='cart_item_name'>$value->name</div><div id='cart_item_price'>$value->price zł</div> <div id='delete_btn'><a href='/sklep/home/deleteFromCart/{$value->id}'>X</a></div></div>";
-                $suma += $value->price;
-            }   
+            
 
             $this->content = 
             "
